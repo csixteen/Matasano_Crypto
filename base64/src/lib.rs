@@ -91,24 +91,11 @@ const PADDING: u8 = 0x3D;
 #[cfg(test)]
 mod tests {
     use super::*;
+    use matasano_util::hex_str_to_bytes;
 
     fn example_input() -> Vec<u8> {
-        let mut res = Vec::new();
-
         let input = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d".to_string();
-        for chunk in input.chars().collect::<Vec<char>>().chunks(2) {
-            match chunk {
-                [a, b] => {
-                    let mut s = String::new();
-                    s.push(*a);
-                    s.push(*b);
-                    res.push(u8::from_str_radix(&s, 16).unwrap());
-                }
-                _ => unreachable!("Shouldn't happen"),
-            }
-        }
-
-        res
+        hex_str_to_bytes(input)
     }
 
     #[test]

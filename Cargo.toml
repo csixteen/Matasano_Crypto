@@ -1,10 +1,10 @@
 [workspace]
 resolver ="2"
 
-members = ["base64"]
+members = ["base64", "matasano-util"]
 
 [workspace.lints]
-rust.rust_2018_idoms = { level = "warn" }
+rust.rust_2018_idioms = { level = "warn" }
 
 clippy.correctness.level = "warn"
 clippy.perf.level = "warn"
@@ -12,3 +12,4 @@ clippy.disallowed_methods.level = "warn"
 
 [workspace.dependencies]
 base64 = { path = "./base64" }
+matasano-util = { path = "./matasano-util" }
