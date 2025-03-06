@@ -1,0 +1,10 @@
+[package]
+name = "matasano-ops"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+matasano-util.workspace = true
+
+[lints]
+workspace = true

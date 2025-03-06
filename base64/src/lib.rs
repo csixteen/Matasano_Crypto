@@ -1,3 +1,5 @@
+/// Takes an input that can be any sequence of bytes and returns a Vec of bytes
+/// with the input Base64 encoded.
 pub fn encode(input: impl AsRef<[u8]>) -> Vec<u8> {
     let input = input.as_ref();
     let len = input.len();
@@ -35,6 +37,8 @@ pub fn encode(input: impl AsRef<[u8]>) -> Vec<u8> {
     res
 }
 
+/// Takes as input a string which represents Base64 encoded data and returns a Vec
+/// of bytes with the decoded input.
 pub fn decode(input: impl AsRef<str>) -> Vec<u8> {
     let input = input.as_ref().chars().collect::<Vec<_>>();
     let len = input.len() * 6 / 8;
