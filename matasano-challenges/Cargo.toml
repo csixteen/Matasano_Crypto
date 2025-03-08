@@ -1,0 +1,11 @@
+[package]
+name = "matasano-challenges"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+matasano-ops.workspace = true
+matasano-util.workspace = true
+
+[lints]
+workspace = true
