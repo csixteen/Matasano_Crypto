@@ -10,7 +10,7 @@ pub fn is_special_word(xs: &str) -> bool {
 pub fn is_number(xs: &str) -> bool {
     u64::from_str_radix(xs, 2)
         .or(u64::from_str_radix(xs, 8))
-        .or(u64::from_str_radix(xs, 10))
+        .or(xs.parse::<u64>())
         .or(u64::from_str_radix(xs, 16))
         .is_ok()
         || xs.parse::<f64>().is_ok()
@@ -81,13 +81,32 @@ pub fn single_byte_xor(input: String) -> Vec<(u8, String)> {
     res
 }
 
-pub fn run() {
+pub fn detect_single_char_xor() -> anyhow::Result<()> {
+    let data = matasano_util::get_file_contents("./data/4.txt")?;
+
+    // Need to improve the algorithm for detecting valid sentences. There are two false positives.
+    // The correct sentence is also printed: "Now that the party is jumping"
+    for line in data {
+        for (key, candidate) in single_byte_xor(line) {
+            println!("(key: {}) {}", key, candidate);
+        }
+    }
+
+    Ok(())
+}
+
+pub fn run() -> anyhow::Result<()> {
     println!("====== Single-byte XOR cipher ======");
 
     let input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".to_string();
     for (key, candidate) in single_byte_xor(input) {
         println!("(key: {}) {}", key, candidate);
     }
+
+    println!("====== Detect single-character XOR ======");
+    detect_single_char_xor()?;
+
+    Ok(())
 }
 
 #[cfg(test)]

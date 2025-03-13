@@ -11,6 +11,7 @@ clippy.perf.level = "warn"
 clippy.disallowed_methods.level = "warn"
 
 [workspace.dependencies]
+anyhow = "1.0"
 matasano-challenges = { path = "./matasano-challenges" }
 matasano-encoding = { path = "./matasano-encoding" }
 matasano-ops = { path = "./matasano-ops" }

@@ -1,3 +1,14 @@
+use std::{fs::File, io::Read, path::Path};
+
+/// Takes a string with hexadecimal characters and returns a Vec with the bytes represented by
+/// those characters.
+///
+/// ```text
+/// assert_eq!(
+///     vec![0xde, 0xad, 0xbe, 0xef],
+///     hex_str_to_bytes("deadbeef".to_string())
+/// );
+/// ```
 pub fn hex_str_to_bytes(xs: String) -> Vec<u8> {
     #[inline]
     fn b_to_dec(b: u8) -> u8 {
@@ -23,6 +34,15 @@ pub fn hex_str_to_bytes(xs: String) -> Vec<u8> {
     }
 
     res
+}
+
+pub fn get_file_contents(name: impl AsRef<Path>) -> ::std::io::Result<Vec<String>> {
+    let mut buffer = String::new();
+    let mut file = File::open(name)?;
+
+    file.read_to_string(&mut buffer).unwrap();
+
+    Ok(buffer.trim().split("\n").map(|x| String::from(x)).collect())
 }
 
 #[cfg(test)]

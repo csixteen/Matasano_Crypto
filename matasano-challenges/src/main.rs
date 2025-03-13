@@ -1,5 +1,7 @@
 use matasano_challenges::set1;
 
-fn main() {
-    set1::run();
+fn main() -> anyhow::Result<()> {
+    set1::run()?;
+
+    Ok(())
 }
