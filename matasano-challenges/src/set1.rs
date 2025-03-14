@@ -74,7 +74,7 @@ pub fn single_byte_xor(input: String) -> Vec<(u8, String)> {
         let xored_ascii = String::from_utf8_lossy(&xored);
 
         if maybe_good_string(xored_ascii.trim()) {
-            res.push((byte, xored_ascii.to_string()));
+            res.push((byte, xored_ascii.trim().to_string()));
         }
     }
 

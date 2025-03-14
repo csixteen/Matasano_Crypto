@@ -1,7 +1,7 @@
 [workspace]
 resolver ="2"
 
-members = ["matasano-challenges","matasano-encoding", "matasano-ops", "matasano-util"]
+members = ["matasano-challenges","matasano-encoding", "matasano-ops", "matasano-parser", "matasano-util"]
 
 [workspace.lints]
 rust.rust_2018_idioms = { level = "warn" }
