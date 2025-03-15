@@ -1,4 +1,11 @@
-pub fn is_special_word(xs: &str) -> bool {
+//--------------------------------------------------------------------------
+// BEGIN NOTE
+//
+// These methods will soon be replaced by matasano-parser. I'm using
+// them for now to have a quick (and naive) way of deciding if a string
+// is garbage or not. It worked well for Challenge 3, but not so well for
+// Challenge 4 (there were 2 false positives).
+fn is_special_word(xs: &str) -> bool {
     xs == "pneumonoultramicroscopicsilicovolcanoconiosis"
         || xs == "supercalifragilisticexpialidocious"
         || xs == "pseudopseudohypoparathyroidism"
@@ -7,7 +14,7 @@ pub fn is_special_word(xs: &str) -> bool {
 }
 
 /// Checks whether a string represents a number.
-pub fn is_number(xs: &str) -> bool {
+fn is_number(xs: &str) -> bool {
     u64::from_str_radix(xs, 2)
         .or(u64::from_str_radix(xs, 8))
         .or(xs.parse::<u64>())
@@ -17,7 +24,7 @@ pub fn is_number(xs: &str) -> bool {
 }
 
 /// Very naive way to check if a string is a valid word.
-pub fn is_regular_word(xs: &str) -> bool {
+fn is_regular_word(xs: &str) -> bool {
     let mut hyphen = 0;
     let mut quote = false;
 
@@ -42,11 +49,11 @@ pub fn is_regular_word(xs: &str) -> bool {
     true
 }
 
-pub fn is_maybe_valid_word(xs: &str) -> bool {
+fn is_maybe_valid_word(xs: &str) -> bool {
     is_special_word(xs) || is_number(xs) || is_regular_word(xs)
 }
 
-pub fn maybe_good_string(xs: &str) -> bool {
+fn maybe_good_string(xs: &str) -> bool {
     let mut valid_words = 0;
     let mut invalid_words = 0;
 
@@ -60,6 +67,8 @@ pub fn maybe_good_string(xs: &str) -> bool {
 
     valid_words > invalid_words
 }
+// END NOTE
+//--------------------------------------------------------------------
 
 /// Takes as input a string that has been XOR'd against a single byte (key). It returns
 /// a Vec of tuples, where the first element of each tuple is a candidate key and
@@ -96,14 +105,14 @@ pub fn detect_single_char_xor() -> anyhow::Result<()> {
 }
 
 pub fn run() -> anyhow::Result<()> {
-    println!("====== Single-byte XOR cipher ======");
+    println!("====== 3. Single-byte XOR cipher ======");
 
     let input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".to_string();
     for (key, candidate) in single_byte_xor(input) {
         println!("(key: {}) {}", key, candidate);
     }
 
-    println!("====== Detect single-character XOR ======");
+    println!("====== 4. Detect single-character XOR ======");
     detect_single_char_xor()?;
 
     Ok(())
