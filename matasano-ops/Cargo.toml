@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 matasano-util.workspace = true
+paste.workspace = true
 
 [lints]
 workspace = true

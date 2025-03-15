@@ -83,6 +83,52 @@ where
     }
 }
 
+pub fn maybe<'a, P, A>(parser: P) -> impl Parser<'a, Option<A>>
+where
+    P: Parser<'a, A>,
+{
+    move |input: &'a str| match parser.parse(input) {
+        Ok((next_input, output)) => Ok((next_input, Some(output))),
+        Err(_) => Ok((input, None)),
+    }
+}
+
+pub fn between<'a, P1, R1, P2, R2, P3, R3>(open: P1, middle: P2, close: P3) -> impl Parser<'a, R2>
+where
+    P1: Parser<'a, R1>,
+    P2: Parser<'a, R2>,
+    P3: Parser<'a, R3>,
+{
+    right(open, left(middle, close))
+}
+
+pub fn count<'a, P, A>(n: usize, parser: P) -> impl Parser<'a, Vec<A>>
+where
+    P: Parser<'a, A>,
+{
+    move |mut input: &'a str| {
+        let mut res = Vec::new();
+
+        if n == 0 {
+            Ok((input, res))
+        } else {
+            let mut i = 0;
+            while i < n {
+                if let Ok((next_input, next_output)) = parser.parse(input) {
+                    input = next_input;
+                    res.push(next_output);
+                } else {
+                    return Err(input);
+                }
+
+                i += 1;
+            }
+
+            Ok((input, res))
+        }
+    }
+}
+
 pub fn match_literal<'b, 'a: 'b>(expected: &'b str) -> impl Parser<'a, ()> + 'b {
     move |input: &'a str| {
         if let Some(stripped) = input.strip_prefix(expected) {

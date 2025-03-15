@@ -1,7 +1,13 @@
 [workspace]
 resolver ="2"
 
-members = ["matasano-challenges","matasano-encoding", "matasano-ops", "matasano-parser", "matasano-util"]
+members = [
+    "matasano-challenges",
+    "matasano-encoding",
+    "matasano-ops",
+    "matasano-parser",
+    "matasano-util"
+]
 
 [workspace.lints]
 rust.rust_2018_idioms = { level = "warn" }
@@ -11,8 +17,11 @@ clippy.perf.level = "warn"
 clippy.disallowed_methods.level = "warn"
 
 [workspace.dependencies]
-anyhow = "1.0"
 matasano-challenges = { path = "./matasano-challenges" }
 matasano-encoding = { path = "./matasano-encoding" }
 matasano-ops = { path = "./matasano-ops" }
+matasano-parser = { path = "./matasano-parser" }
 matasano-util = { path = "./matasano-util" }
+
+anyhow = "1.0"
+paste = "1.0"

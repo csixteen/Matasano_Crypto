@@ -1,4 +1,7 @@
-use crate::prim::{pred, Parser, Result};
+use crate::{
+    combinator::{left, skip_many1},
+    prim::{pred, Parser, Result},
+};
 
 pub fn item(input: &str) -> Result<'_, char> {
     match input.chars().next() {
@@ -23,10 +26,23 @@ pub fn lower_case<'a>() -> impl Parser<'a, char> {
     pred(item, |c| c.is_uppercase())
 }
 
-pub fn whitespace<'a>() -> impl Parser<'a, char> {
+pub fn char_<'a>(c: char) -> impl Parser<'a, char> {
+    pred(item, move |c2| *c2 == c)
+}
+
+// ----------------- white space and symbols -----------------
+
+pub fn single_space<'a>() -> impl Parser<'a, char> {
     pred(item, |c| c.is_whitespace())
 }
 
-pub fn char_<'a>(c: char) -> impl Parser<'a, char> {
-    pred(item, move |c2| *c2 == c)
+pub fn white_space<'a>() -> impl Parser<'a, ()> {
+    skip_many1(single_space())
+}
+
+pub fn lexeme<'a, P, A>(parser: P) -> impl Parser<'a, A>
+where
+    P: Parser<'a, A>,
+{
+    left(parser, white_space())
 }
