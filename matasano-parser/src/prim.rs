@@ -1,3 +1,5 @@
+//! The primitive parser combinators.
+
 pub type Result<'a, T> = ::std::result::Result<(&'a str, T), &'a str>;
 
 pub trait Parser<'a, Out> {
@@ -103,6 +105,8 @@ where
     }
 }
 
+/// Applies the parser `P` zero or more times. Returns a list of the returned
+/// values of `P`.
 pub fn many<'a, P, A>(parser: P) -> impl Parser<'a, Vec<A>>
 where
     P: Parser<'a, A>,
@@ -119,6 +123,7 @@ where
     }
 }
 
+/// Applies the parser `P` zero or more times, skipping the result.
 pub fn skip_many<'a, P, A>(parser: P) -> impl Parser<'a, ()>
 where
     P: Parser<'a, A>,

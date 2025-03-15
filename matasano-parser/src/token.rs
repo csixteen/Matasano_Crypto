@@ -46,3 +46,23 @@ where
 {
     left(parser, white_space())
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::{combinator::between, prim::many};
+
+    use super::*;
+
+    #[test]
+    fn test_many_predicate() {
+        let parser = many(ascii_digit());
+        assert_eq!(Ok(("", vec!['1', '2', '3'])), parser.parse("123"));
+        assert_eq!(Ok(("abc", Vec::new())), parser.parse("abc"));
+    }
+
+    #[test]
+    fn test_many_between() {
+        let parser = between(char_('"'), many(ascii_digit()), char_('"'));
+        assert_eq!(Ok(("", vec!['1', '2', '3'])), parser.parse("\"123\""));
+    }
+}

@@ -1,3 +1,5 @@
+//! Convenience store with a few bitwise operations performed on sequences of bytes.
+
 use std::ops::{BitAnd, BitOr, BitXor};
 
 use matasano_util::hex_str_to_bytes;
