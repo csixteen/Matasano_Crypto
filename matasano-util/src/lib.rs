@@ -21,19 +21,24 @@ pub fn hex_str_to_bytes(xs: &str) -> Vec<u8> {
     }
 
     let mut res = Vec::new();
+    let mut iter = xs.bytes();
 
-    for chunk in xs.bytes().collect::<Vec<u8>>().chunks(2) {
-        match chunk {
-            [a, b] => {
-                let aa = b_to_dec(*a);
-                let bb = b_to_dec(*b);
-                res.push(((aa << 4) & 0xF0) | (bb & 0xF));
+    loop {
+        let a = iter.next();
+        let b = iter.next();
+
+        match (a, b) {
+            (None, None) => {
+                return res;
+            }
+            (Some(aa), Some(bb)) => {
+                let aaa = b_to_dec(aa);
+                let bbb = b_to_dec(bb);
+                res.push(((aaa << 4) & 0xF0) | (bbb & 0xF));
             }
             _ => unreachable!(),
         }
     }
-
-    res
 }
 
 pub fn get_file_contents(name: impl AsRef<Path>) -> ::std::io::Result<Vec<String>> {
