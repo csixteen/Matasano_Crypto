@@ -73,7 +73,7 @@ fn maybe_good_string(xs: &str) -> bool {
 /// Takes as input a string that has been XOR'd against a single byte (key). It returns
 /// a Vec of tuples, where the first element of each tuple is a candidate key and
 /// the second is a candidate original string.
-pub fn single_byte_xor(input: String) -> Vec<(u8, String)> {
+pub fn single_byte_xor(input: &str) -> Vec<(u8, String)> {
     let bytes = matasano_util::hex_str_to_bytes(input);
     let mut res = Vec::new();
 
@@ -96,7 +96,7 @@ pub fn detect_single_char_xor() -> anyhow::Result<()> {
     // Need to improve the algorithm for detecting valid sentences. There are two false positives.
     // The correct sentence is also printed: "Now that the party is jumping"
     for line in data {
-        for (key, candidate) in single_byte_xor(line) {
+        for (key, candidate) in single_byte_xor(&line) {
             println!("(key: {}) {}", key, candidate);
         }
     }
@@ -107,7 +107,7 @@ pub fn detect_single_char_xor() -> anyhow::Result<()> {
 pub fn run() -> anyhow::Result<()> {
     println!("====== 3. Single-byte XOR cipher ======");
 
-    let input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736".to_string();
+    let input = "1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736";
     for (key, candidate) in single_byte_xor(input) {
         println!("(key: {}) {}", key, candidate);
     }

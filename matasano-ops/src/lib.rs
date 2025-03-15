@@ -8,7 +8,7 @@ use paste::paste;
 macro_rules! boolean_ops {
     ( $( $name:ident => $op:ident ),* ) => {$(
         paste! {
-            pub fn [<$name _str>](a: String, b: String) -> Vec<u8> {
+            pub fn [<$name _str>](a: &str, b: &str) -> Vec<u8> {
                 let a = hex_str_to_bytes(a);
                 let b = hex_str_to_bytes(b);
                 $name(a, b)
@@ -51,8 +51,8 @@ mod tests {
                 0x70, 0x6C, 0x61, 0x79
             ],
             xor_str(
-                "1c0111001f010100061a024b53535009181c".to_string(),
-                "686974207468652062756c6c277320657965".to_string()
+                "1c0111001f010100061a024b53535009181c",
+                "686974207468652062756c6c277320657965"
             )
         );
     }

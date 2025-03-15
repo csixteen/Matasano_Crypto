@@ -6,10 +6,10 @@ use std::{fs::File, io::Read, path::Path};
 /// ```text
 /// assert_eq!(
 ///     vec![0xde, 0xad, 0xbe, 0xef],
-///     hex_str_to_bytes("deadbeef".to_string())
+///     hex_str_to_bytes("deadbeef")
 /// );
 /// ```
-pub fn hex_str_to_bytes(xs: String) -> Vec<u8> {
+pub fn hex_str_to_bytes(xs: &str) -> Vec<u8> {
     #[inline]
     fn b_to_dec(b: u8) -> u8 {
         match b {
@@ -42,7 +42,7 @@ pub fn get_file_contents(name: impl AsRef<Path>) -> ::std::io::Result<Vec<String
 
     file.read_to_string(&mut buffer).unwrap();
 
-    Ok(buffer.trim().split("\n").map(|x| String::from(x)).collect())
+    Ok(buffer.trim().split("\n").map(String::from).collect())
 }
 
 #[cfg(test)]
@@ -56,7 +56,7 @@ mod tests {
                 0x1c, 0x1, 0x11, 0x0, 0x1f, 0x1, 0x1, 0x0, 0x6, 0x1a, 0x2, 0x4b, 0x53, 0x53, 0x50,
                 0x9, 0x18, 0x1c
             ],
-            hex_str_to_bytes("1c0111001f010100061a024b53535009181c".to_string())
+            hex_str_to_bytes("1c0111001f010100061a024b53535009181c")
         );
     }
 }
