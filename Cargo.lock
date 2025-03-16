@@ -26,6 +26,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "matasano-constants"
+version = "0.1.0"
+
+[[package]]
 name = "matasano-encoding"
 version = "0.1.0"
 dependencies = [

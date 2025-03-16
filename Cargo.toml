@@ -4,6 +4,7 @@ resolver ="2"
 members = [
     "matasano-bitwise",
     "matasano-challenges",
+    "matasano-constants",
     "matasano-encoding",
     "matasano-parser",
     "matasano-util"
@@ -19,6 +20,7 @@ clippy.disallowed_methods.level = "warn"
 [workspace.dependencies]
 matasano-bitwise = { path = "./matasano-bitwise" }
 matasano-challenges = { path = "./matasano-challenges" }
+matasano-constants = { path = "./matasano-constants" }
 matasano-encoding = { path = "./matasano-encoding" }
 matasano-parser = { path = "./matasano-parser" }
 matasano-util = { path = "./matasano-util" }
