@@ -79,7 +79,7 @@ pub fn single_byte_xor(input: &str) -> Vec<(u8, String)> {
 
     for byte in 41..=0x7F {
         let key = vec![byte; bytes.len()];
-        let xored = matasano_ops::xor(&bytes, key);
+        let xored = matasano_bitwise::xor(&bytes, key);
         let xored_ascii = String::from_utf8_lossy(&xored);
 
         if maybe_good_string(xored_ascii.trim()) {

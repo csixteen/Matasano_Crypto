@@ -1,5 +1,5 @@
 [package]
-name = "matasano-ops"
+name = "matasano-bitwise"
 version = "0.1.0"
 edition = "2021"
 

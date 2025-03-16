@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 anyhow.workspace = true
-matasano-ops.workspace = true
+matasano-bitwise.workspace = true
 matasano-util.workspace = true
 
 [lints]
