@@ -64,6 +64,27 @@ macro_rules! boolean_ops {
 
 boolean_ops!(xor => bitxor, or => bitor, and => bitand);
 
+/// Counts the number of bits set in a byte value.
+/// This is the Brian Kerninghan's way, as published in
+/// The C Programming Language, 2nd ed.
+pub fn count_bits_set(mut v: u8) -> usize {
+    let mut c = 0;
+    while v > 0 {
+        v &= v - 1;
+        c += 1;
+    }
+
+    c
+}
+
+/// Calculates the Hamming distance between two sequences of bytes.
+pub fn hamming_distance(a: impl AsRef<[u8]>, b: impl AsRef<[u8]>) -> usize {
+    xor(a, b)
+        .iter()
+        .map(|byte| count_bits_set(*byte))
+        .sum::<usize>()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -93,5 +114,10 @@ mod tests {
             ),
             xor_cycle(a, b)
         );
+    }
+
+    #[test]
+    fn test_hamming_distance() {
+        assert_eq!(37, hamming_distance("this is a test", "wokka wokka!!!"));
     }
 }
