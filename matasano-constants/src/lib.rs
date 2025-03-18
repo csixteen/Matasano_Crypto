@@ -33,6 +33,7 @@ pub const MONOGRAM_FREQ: [(char, f64); 26] = [
     ('z', 0.0011),
 ];
 
+/// Most common words in a 'news' text corpus containing around 900 million words.
 pub const WORD_FREQ: [(&str, f64); 30] = [
     ("the", 0.0642),
     ("of", 0.0276),

@@ -1,6 +1,7 @@
 use crate::{
+    character::string,
     combinator::{left, skip_many1},
-    prim::{pred, Parser, Result},
+    prim::{pred, skip_many, Parser, Result},
 };
 
 pub fn item(input: &str) -> Result<'_, char> {
@@ -37,14 +38,25 @@ pub fn single_space<'a>() -> impl Parser<'a, char> {
 }
 
 pub fn white_space<'a>() -> impl Parser<'a, ()> {
+    skip_many(single_space())
+}
+
+pub fn white_space1<'a>() -> impl Parser<'a, ()> {
     skip_many1(single_space())
 }
 
+/// It first applies parser `P` and then `white_space` parser, returning
+/// the value of `P` (`A`).
 pub fn lexeme<'a, P, A>(parser: P) -> impl Parser<'a, A>
 where
     P: Parser<'a, A>,
 {
     left(parser, white_space())
+}
+
+/// Lexeme parser that parses `s` and skips trailing white space.
+pub fn symbol(s: &str) -> impl Parser<'_, String> {
+    lexeme(string(s))
 }
 
 #[cfg(test)]

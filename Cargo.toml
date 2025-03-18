@@ -10,12 +10,22 @@ members = [
     "matasano-util"
 ]
 
-[workspace.lints]
-rust.rust_2018_idioms = { level = "warn" }
+[workspace.lints.rust]
+explicit_outlives_requirements = "warn"
+impl_trait_redundant_captures = "warn"
+macro_use_extern_crate = "warn"
+redundant_imports = "warn"
+redundant_lifetimes = "warn"
+single_use_lifetimes = "warn"
+rust_2018_idioms = "warn"
+unit_bindings = "warn"
+trivial_casts = "warn"
+trivial_numeric_casts = "warn"
 
-clippy.correctness.level = "warn"
-clippy.perf.level = "warn"
-clippy.disallowed_methods.level = "warn"
+[workspace.lints.clippy]
+correctness.level = "warn"
+perf.level = "warn"
+disallowed_methods.level = "warn"
 
 [workspace.dependencies]
 matasano-bitwise = { path = "./matasano-bitwise" }
@@ -26,4 +36,5 @@ matasano-parser = { path = "./matasano-parser" }
 matasano-util = { path = "./matasano-util" }
 
 anyhow = "1.0"
+itertools = "0.14"
 paste = "1.0"
