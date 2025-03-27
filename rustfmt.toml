@@ -1,4 +1,4 @@
-edition = "2021"
+edition = "2024"
 
 # nightly `rustfmt` must be used for formatting.
 unstable_features = true

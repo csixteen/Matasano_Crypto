@@ -37,4 +37,5 @@ matasano-util = { path = "./matasano-util" }
 
 anyhow = "1.0"
 itertools = "0.14"
+lazy_static = "1.5"
 paste = "1.0"
